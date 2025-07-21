@@ -1,4 +1,4 @@
-package org.library;
+package org.library.users;
 public class Book  {
     final private String id;
     private final String title;

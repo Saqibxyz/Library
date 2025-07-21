@@ -1,4 +1,5 @@
-package org.library;
+package org.library.users;
+
 public class Student extends User {
     private static final int DEFAULT_BORROW_LIMIT = 5;
     final private int borrowLimit;
