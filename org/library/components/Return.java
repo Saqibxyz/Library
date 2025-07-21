@@ -1,4 +1,8 @@
 package org.library;
+
+import org.library.users.Library;
+import org.library.users.Student;
+
 public class Return {
     public static void returnBook(Student student, Library library, String bookId) {
         Book book = library.findBookById(bookId);

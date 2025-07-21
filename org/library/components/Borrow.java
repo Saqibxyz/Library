@@ -1,5 +1,8 @@
 package org.library;
 
+import org.library.users.Library;
+import org.library.users.Student;
+
 public class Borrow {
 
     public static void borrowBook(Library library, Student student, String bookId) {
