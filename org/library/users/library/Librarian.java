@@ -1,6 +1,7 @@
-package org.library.users;
+package org.library.users.library;
 
 import org.library.components.Report;
+import org.library.users.User;
 
 public class Librarian extends User {
 

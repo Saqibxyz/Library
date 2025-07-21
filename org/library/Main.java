@@ -1,4 +1,16 @@
 package org.library;
+import org.library.components.Borrow;
+import org.library.components.Print;
+import org.library.components.Return;
+import org.library.disk.Backup;
+import org.library.disk.Sync;
+import org.library.disk.SyncData;
+import org.library.users.*;
+import org.library.users.library.Book;
+import org.library.users.library.Librarian;
+import org.library.users.library.Library;
+import org.library.users.student.Student;
+
 import java.util.*;
 
 public class Main {
@@ -6,10 +18,10 @@ public class Main {
     private static final Scanner scanner = new Scanner(System.in);
     private static final Library library = Sync.safeLoadFromDisk("library.json");
     private static final Map<String, User> users = SyncData.loadUsers();
-
+    private static final Backup backup = new Backup(library, "library.json", 30);
     public static void main(String[] args) {
-        Backup backup = new Backup(library, "library.json", 30);
-        new Thread(backup).start();
+
+        backup.startBackup();
 
         Print.header("Library Management System");
 
@@ -174,6 +186,7 @@ public class Main {
         Print.success("Saving data and exiting...");
         Sync.safeSaveToDisk(library, "library.json");
         SyncData.saveUsers(users);
+        backup.stopBackup();
         System.exit(0);
     }
 

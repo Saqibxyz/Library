@@ -1,6 +1,7 @@
-package org.library;
+package org.library.components;
 
-import org.library.users.Library;
+import org.library.users.library.Book;
+import org.library.users.library.Library;
 
 import java.lang.reflect.Field;
 import java.util.List;

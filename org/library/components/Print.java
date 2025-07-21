@@ -1,4 +1,4 @@
-package org.library;
+package org.library.components;
 
 public class Print {
     private static final String RESET = "\u001B[0m";
