@@ -164,7 +164,7 @@ public class Main {
                     String bookId = scanner.nextLine().trim();
 
                     new Thread(() -> {
-                        synchronized (library) {
+                        synchronized (library) { // can we remove synchronisation here?
                             try {
                                 Return.returnBook(student, library, bookId);
                             } catch (IllegalStateException e) {
