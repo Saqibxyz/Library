@@ -21,7 +21,7 @@ public class Borrow {
             return;
         }
         book.setAvailable(false);
-        student.borrowOne();
+        student.borrowOne();// increment borrow count if limit not reached.
         Print.success("Book borrowed successfully: " + book.getTitle());
     }
 }

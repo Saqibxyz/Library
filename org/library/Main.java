@@ -1,4 +1,6 @@
+
 package org.library;
+
 import org.library.components.Borrow;
 import org.library.components.Print;
 import org.library.components.Return;
@@ -7,6 +9,7 @@ import org.library.disk.Sync;
 import org.library.disk.SyncData;
 import org.library.users.*;
 import org.library.users.library.Book;
+import org.library.users.library.EBook;
 import org.library.users.library.Librarian;
 import org.library.users.library.Library;
 import org.library.users.student.Student;
@@ -19,8 +22,8 @@ public class Main {
     private static final Library library = Sync.safeLoadFromDisk("library.json");
     private static final Map<String, User> users = SyncData.loadUsers();
     private static final Backup backup = new Backup(library, "library.json", 30);
-    public static void main(String[] args) {
 
+    public static void main(String[] args) {
         backup.startBackup();
 
         Print.header("Library Management System");
@@ -70,7 +73,7 @@ public class Main {
 
         switch (role) {
             case 1 -> user = new Librarian(userId, name);
-            case 2 -> user = new Student(userId, name,2);
+            case 2 -> user = new Student(userId, name, 2);
             default -> {
                 Print.error("Invalid role selected.");
                 return;
@@ -86,25 +89,36 @@ public class Main {
         while (true) {
             Print.header("Librarian Menu");
             Print.bold("""
-                1. Add Book
-                2. View All Books
-                3. Filter Books by Title
-                4. Generate Report
-                5. Logout
-            """);
+                    1. Add Book
+                    2. View All Books
+                    3. Filter Books by Title
+                    4. Generate Report
+                    5. View EBooks Only
+                    6. Logout
+                    """);
 
             Print.println("Choose an option:");
             int choice = getIntInput();
 
             switch (choice) {
                 case 1 -> {
+                    Print.println("Add as:\n1. Physical Book\n2. EBook");
+                    int type = getIntInput();
+
                     Print.println("Enter Book Title:");
                     String title = scanner.nextLine().trim();
                     Print.println("Enter Author:");
                     String author = scanner.nextLine().trim();
-
                     String bookId = UUID.randomUUID().toString().substring(0, 6);
-                    Book book = new Book(bookId, title, author);
+
+                    Book book;
+                    if (type == 2) {
+                        Print.println("Enter Download Link:");
+                        String link = scanner.nextLine().trim();
+                        book = new EBook(bookId, title, author, link);
+                    } else {
+                        book = new Book(bookId, title, author);
+                    }
 
                     Sync.safeAddBook(library, book);
                     Print.success("Book added successfully.");
@@ -118,8 +132,16 @@ public class Main {
                     Print.info("Books matching \"" + titlePart + "\":");
                     Print.info(matches.toString());
                 }
-                case 4 -> librarian.generateReport(library);
+                case 4 -> generateReflectionReport();
                 case 5 -> {
+                    List<EBook> ebooks = library.getBooksByType(EBook.class);
+                    if (ebooks.isEmpty()) {
+                        Print.info("No EBooks found.");
+                    } else {
+                        ebooks.forEach(book -> Print.println(book.toString()));
+                    }
+                }
+                case 6 -> {
                     Sync.safeSaveToDisk(library, "library.json");
                     return;
                 }
@@ -132,12 +154,12 @@ public class Main {
         while (true) {
             Print.header("Student Menu");
             Print.bold("""
-                1. View All Books
-                2. View Available Books
-                3. Borrow Book
-                4. Return Book
-                5. Logout
-            """);
+                    1. View All Books
+                    2. View Available Books
+                    3. Borrow Book
+                    4. Return Book
+                    5. Logout
+                    """);
 
             Print.println("Choose an option:");
             int choice = getIntInput();
@@ -164,7 +186,7 @@ public class Main {
                     String bookId = scanner.nextLine().trim();
 
                     new Thread(() -> {
-                        synchronized (library) { // can we remove synchronisation here?
+                        synchronized (library) {
                             try {
                                 Return.returnBook(student, library, bookId);
                             } catch (IllegalStateException e) {
@@ -196,6 +218,23 @@ public class Main {
         } catch (NumberFormatException e) {
             Print.error("Invalid input. Please enter a number.");
             return -1;
+        }
+    }
+
+    private static void generateReflectionReport() {
+        List<Book> books = library.getAllBooks();
+        Print.header("Library Report:");
+
+        for (Book book : books) {
+            Print.println("\nBook Details:");
+            for (var field : book.getClass().getDeclaredFields()) {
+                field.setAccessible(true);
+                try {
+                    Print.println(field.getName() + ": " + field.get(book));
+                } catch (IllegalAccessException e) {
+                    Print.error("Error accessing field: " + field.getName());
+                }
+            }
         }
     }
 }

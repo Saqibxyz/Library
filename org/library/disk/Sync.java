@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Sync {
+    static final Object lock=new Object();
     private static final Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
     public static void saveLibrary(Library library, String fileName) {
@@ -22,21 +23,6 @@ public class Sync {
             Print.error("Failed to save library: " + e.getMessage());
         }
     }
-//    public static Library loadLibrary(String fileName) {
-//        try (Reader reader = new FileReader(fileName)) {
-//            Type bookListType = new TypeToken<List<Book>>() {}.getType();
-//            List<Book> books = gson.fromJson(reader, bookListType);
-//            Library library = new Library();
-//            library.setBooks(books);
-//            return library;
-//        } catch (FileNotFoundException e) {
-//            Print.info("Library file not found. Starting fresh.");
-//            return new Library();
-//        } catch (IOException e) {
-//            Print.error("Failed to load library: " + e.getMessage());
-//            return new Library();
-//        }
-//    }
 public static Library loadLibrary(String fileName) {
     try (Reader reader = new FileReader(fileName)) {
         Type bookListType = new TypeToken<List<Book>>() {}.getType();

@@ -26,7 +26,7 @@ public class Backup implements Runnable {
 
     public void stopBackup() {
         running = false;
-        thread.interrupt(); // Interrupt sleep
+        thread.interrupt();
     }
 
     @Override
