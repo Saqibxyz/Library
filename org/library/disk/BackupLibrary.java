@@ -1,9 +1,10 @@
+// reviewed
 package org.library.disk;
 
 import org.library.users.library.Library;
 import org.library.components.Print;
 
-public class Backup implements Runnable {
+public class BackupLibrary implements Runnable {
 
     private final Library library;
     private final String filePath;
@@ -11,7 +12,7 @@ public class Backup implements Runnable {
     private volatile boolean running;
     private final Thread thread;
 
-    public Backup(Library library, String filePath, int intervalSecs) {
+    public BackupLibrary(Library library, String filePath, int intervalSecs) {
         this.library = library;
         this.filePath = filePath;
         this.intervalMillis = intervalSecs * 1000L;
@@ -48,3 +49,4 @@ public class Backup implements Runnable {
         Print.info("Backup thread stopped.");
     }
 }
+

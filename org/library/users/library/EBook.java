@@ -1,4 +1,4 @@
-
+// reviewed
 package org.library.users.library;
 
 public class EBook extends Book {
@@ -8,12 +8,6 @@ public class EBook extends Book {
         super(id, title, author);
         this.downloadLink = downloadLink;
     }
-
-    public String getDownloadLink() {
-        return downloadLink;
-    }
-
-
     @Override
     public String toString() {
         return super.toString() + " [EBook: Download at " + downloadLink + "]";

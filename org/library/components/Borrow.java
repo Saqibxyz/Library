@@ -6,22 +6,22 @@ import org.library.users.student.Student;
 
 public class Borrow {
 
-    public static void borrowBook(Library library, Student student, String bookId) {
+    public static void borrowBook(Library library, Student student, String bookId) throws CustomException {
         Book book = library.findBookById(bookId);
+
         if (book == null) {
-            Print.error("Book with ID '" + bookId + "' not found.");
-            return;
+            throw new CustomException("Book with ID '" + bookId + "' not found.");
         }
         if (!book.isAvailable()) {
-            Print.warning("Book \"" + book.getTitle() + "\" is currently not available.");
-            return;
+            throw new CustomException("Book \"" + book.getTitle() + "\" is currently not available.");
         }
-        if (student.canBorrow()) {
-            Print.warning("Borrow limit reached for student " + student.getName());
-            return;
+        if (!student.canBorrow()) {
+            throw new CustomException("Borrow limit reached for student " + student.getName());
         }
+
         book.setAvailable(false);
-        student.borrowOne();// increment borrow count if limit not reached.
+        student.borrowOne(); // increment borrow count if limit not reached
         Print.success("Book borrowed successfully: " + book.getTitle());
     }
+
 }

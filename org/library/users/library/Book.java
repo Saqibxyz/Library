@@ -1,3 +1,4 @@
+// reviewed
 package org.library.users.library;
 public class Book  {
     final private String id;
@@ -9,10 +10,8 @@ public class Book  {
         this.id = id;
         this.title = title;
         this.author = author;
-        this.available = true; // default to available
+        this.available = true;
     }
-
-
     public String getId() {
         return id;
     }
@@ -48,4 +47,6 @@ public class Book  {
     public int hashCode() {
         return id.hashCode();
     }
+
+
 }

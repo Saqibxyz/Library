@@ -1,14 +1,15 @@
+// refactored
 package org.library.components;
 
 public class Print {
-    private static final String RESET = "\u001B[0m";
-    private static final String RED = "\u001B[31m";
-    private static final String GREEN = "\u001B[32m";
-    private static final String YELLOW = "\u001B[33m";
-    private static final String BLUE = "\u001B[34m";
-    private static final String CYAN = "\u001B[36m";
-    private static final String MAGENTA = "\u001B[35m";
-    private static final String WHITE_BOLD = "\u001B[1;37m";
+    public static final String RESET = "\u001B[0m";
+    public static final String RED = "\u001B[31m";
+    public static final String GREEN = "\u001B[32m";
+    public static final String YELLOW = "\u001B[33m";
+    public static final String BLUE = "\u001B[34m";
+    public static final String CYAN = "\u001B[36m";
+    public static final String MAGENTA = "\u001B[35m";
+    public static final String WHITE_BOLD = "\u001B[1;37m";
     public static void success(String message) {
         System.out.println(GREEN + "[SUCCESS] " + message + RESET);
     }
@@ -30,4 +31,6 @@ public class Print {
     public static void println(String message) {
         System.out.println(BLUE + message + RESET);
     }
+
+
 }
