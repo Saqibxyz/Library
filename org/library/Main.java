@@ -3,6 +3,7 @@ package org.library;
 
 import org.library.components.*;
 import org.library.disk.BackupLibrary;
+import org.library.disk.BackupUsers;
 import org.library.disk.Sync;
 import org.library.disk.SyncData;
 import org.library.users.*;
@@ -20,9 +21,10 @@ public class Main {
     private static final Library library = Sync.safeLoadFromDisk("library.json");
     private static final Map<String, User> users = SyncData.loadUsers();
     private static final BackupLibrary backup = new BackupLibrary(library, "library.json", 30);
-
+    public static BackupUsers backupUsers=new BackupUsers(users,30);
     public static void main(String[] args) {
         backup.startBackup();
+        backupUsers.startBackup();
         Print.header("Library Management System");
 
 
@@ -229,6 +231,7 @@ private static void studentMenu(Student student) {
         Sync.safeSaveToDisk(library, "library.json");
         SyncData.saveUsers(users);
         backup.stopBackup();
+        backupUsers.stopBackup();
         System.exit(0);
     }
 
