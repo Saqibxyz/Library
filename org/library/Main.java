@@ -18,7 +18,7 @@ import java.util.*;
 public class Main {
 
     private static final Scanner scanner = new Scanner(System.in);
-    private static final Library library = Sync.safeLoadFromDisk("library.json");
+    private static final Library library = Sync.loadLibrary("library.json");
     private static final Map<String, User> users = SyncData.loadUsers();
     private static final BackupLibrary backup = new BackupLibrary(library, "library.json", 30);
     public static BackupUsers backupUsers=new BackupUsers(users,"users.json",30);

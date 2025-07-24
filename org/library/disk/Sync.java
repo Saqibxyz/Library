@@ -51,10 +51,6 @@ public class Sync {
             }
         }
     }
-
-
-
-
     public static void safeAddBook(Library library, Book book) {
         synchronized (library) {
             library.addBook(book);
@@ -66,9 +62,5 @@ public class Sync {
         synchronized (library) {
             saveLibrary(library, fileName);
         }
-    }
-
-    public static Library safeLoadFromDisk(String fileName) {
-        return loadLibrary(fileName);
     }
 }
