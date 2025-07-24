@@ -1,6 +1,8 @@
 //reviewed
 package org.library.users;
 
+import org.library.components.CustomException;
+
 public abstract class User {
     protected String userId;
     protected String name;
@@ -36,7 +38,7 @@ public abstract class User {
         if (this == obj) return true;
         if (!(obj instanceof User)) return false;
         User other = (User) obj;
-        return this.userId.equals(other.userId);
+        return this.userId.equals(other.userId) && getRole().equals(other.getRole());
     }
 
     @Override
