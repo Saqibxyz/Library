@@ -39,7 +39,6 @@ public class BackupUsers implements Runnable {
                 SyncData.saveUsers(users,filePath);
 
             } catch (InterruptedException e) {
-                Print.warning("User backup thread interrupted.");
                 break;
             } catch (Exception e) {
                 Print.error("User backup failed: " + e.getMessage());

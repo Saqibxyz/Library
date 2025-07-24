@@ -39,7 +39,6 @@ public class BackupLibrary implements Runnable {
                 Thread.sleep(intervalMillis);
                 Sync.safeSaveToDisk(library, filePath);
             } catch (InterruptedException e) {
-                Print.warning("Backup thread interrupted.");
                 break;
             } catch (Exception e) {
                 Print.error("Backup failed: " + e.getMessage());
