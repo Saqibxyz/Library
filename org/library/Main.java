@@ -291,6 +291,7 @@ private static void studentMenu(Student student) {
         if(password.isEmpty())
         {
             Print.error("Enter valid password");
+
             return;
         }
         Optional<User> matched = users.values().stream()
