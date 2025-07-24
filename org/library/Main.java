@@ -200,7 +200,7 @@ private static void studentMenu(Student student) {
             }
 
             case 4 -> {
-                if (student.getBorrowedCount() <= 0) {
+                if (!student.canReturn()) {
                     Print.info("No books borrowed.");
                 } else {
                     String bookId = getStringInput("Enter Book ID to return");

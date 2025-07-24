@@ -35,7 +35,7 @@ public class BackupUsers implements Runnable {
             try {
                 Thread.sleep(intervalMillis);
                 SyncData.saveUsers(users);
-                Print.success("Users backed up successfully.");
+
             } catch (InterruptedException e) {
                 Print.warning("User backup thread interrupted.");
                 break;

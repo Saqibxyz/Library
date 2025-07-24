@@ -57,8 +57,8 @@ public class Student extends User {
         return borrowedCount < borrowLimit;
     }
 
-    public int getBorrowedCount() {
-        return borrowedCount;
+    public boolean canReturn() {
+        return borrowedCount>0;
     }
 
     public void borrowOne() {
