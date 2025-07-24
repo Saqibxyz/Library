@@ -21,7 +21,7 @@ public class Main {
     private static final Library library = Sync.safeLoadFromDisk("library.json");
     private static final Map<String, User> users = SyncData.loadUsers();
     private static final BackupLibrary backup = new BackupLibrary(library, "library.json", 30);
-    public static BackupUsers backupUsers=new BackupUsers(users,30);
+    public static BackupUsers backupUsers=new BackupUsers(users,"users.json",30);
     public static void main(String[] args) {
         backup.startBackup();
         backupUsers.startBackup();
@@ -85,7 +85,7 @@ private static void register() {
     }
 
     users.put(userId, user);
-    SyncData.saveUsers(users);
+    SyncData.saveUsers(users,"users.json");
     Print.success("Registered successfully! Your ID: " + userId);
 }
 
@@ -229,7 +229,7 @@ private static void studentMenu(Student student) {
     private static void exit() {
         Print.success("Saving data and exiting...");
         Sync.safeSaveToDisk(library, "library.json");
-        SyncData.saveUsers(users);
+        SyncData.saveUsers(users,"users.json");
         backup.stopBackup();
         backupUsers.stopBackup();
         System.exit(0);

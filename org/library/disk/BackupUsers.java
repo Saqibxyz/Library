@@ -11,9 +11,11 @@ public class BackupUsers implements Runnable {
     private final long intervalMillis;
     private volatile boolean running;
     private final Thread thread;
+    private final String filePath;
 
-    public BackupUsers(Map<String, User> users, int intervalSecs) {
+    public BackupUsers(Map<String, User> users,String file, int intervalSecs) {
         this.users = users;
+        this.filePath=file;
         this.intervalMillis = intervalSecs * 1000L;
         this.running = true;
         this.thread = new Thread(this);
@@ -34,7 +36,7 @@ public class BackupUsers implements Runnable {
         while (running) {
             try {
                 Thread.sleep(intervalMillis);
-                SyncData.saveUsers(users);
+                SyncData.saveUsers(users,filePath);
 
             } catch (InterruptedException e) {
                 Print.warning("User backup thread interrupted.");

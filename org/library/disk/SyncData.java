@@ -20,10 +20,6 @@ public class SyncData {
             .registerTypeAdapter(User.class, new UserAdapter())
             .setPrettyPrinting()
             .create();
-
-    public static void saveUsers(Map<String, User> users) {
-        saveUsers(users, USERS_FILE);
-    }
 // reviewed
     public static void saveUsers(Map<String, User> users, String filePath) {
         try (Writer writer = new FileWriter(filePath)) {
