@@ -228,10 +228,10 @@ private static void studentMenu(Student student) {
 
     private static void exit() {
         Print.success("Saving data and exiting...");
-//        Sync.safeSaveToDisk(library, "library.json");
-//        SyncData.saveUsers(users,"users.json");
         backup.stopBackup();
         backupUsers.stopBackup();
+        Sync.safeSaveToDisk(library, "library.json");
+        SyncData.saveUsers(users,"users.json");
         System.exit(0);
     }
 
